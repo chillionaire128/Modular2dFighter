@@ -1,0 +1,32 @@
+CHARACTER INFO
+
+Each character should have its own directory with subfolders:
+/ArtAssets/: Contains sprites, animations, and sounds.
+/Settings/: Includes the character's settings file.
+/AI/: Contains the AI behavior file.
+
+Art Assets:
+Use PNG or TGA format for sprites because of their transparency support.
+Each animation should be broken into individual frames, with the settings file referencing specific frames for specific moves.
+2.2 Settings File:
+Use a JSON format for flexibility:
+
+json:
+{
+    "name": "CharacterName",
+    "health": 100,
+    "speed": 5,
+    "animations": {
+        "walk": {
+            "frames": ["walk1.png", "walk2.png", ...],
+            "fps": 10
+        },
+        "attack": {
+            "frames": ["attack1.png", ...],
+            "fps": 12,
+            "damage": 10,
+            "hitbox": {...}  // Define hitbox properties here
+        },
+        ...
+    }
+}

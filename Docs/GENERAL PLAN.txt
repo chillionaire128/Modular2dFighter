@@ -1,0 +1,68 @@
+
+2. Character Asset Preparation:
+Each character should have its own directory with subfolders:
+
+/ArtAssets/: Contains sprites, animations, and sounds.
+/Settings/: Includes the character's settings file.
+/AI/: Contains the AI behavior file.
+2.1 Art Assets:
+Use PNG or TGA format for sprites because of their transparency support.
+Each animation should be broken into individual frames, with the settings file referencing specific frames for specific moves.
+2.2 Settings File:
+Use a JSON format for flexibility:
+
+json:
+{
+    "name": "CharacterName",
+    "health": 100,
+    "speed": 5,
+    "animations": {
+        "walk": {
+            "frames": ["walk1.png", "walk2.png", ...],
+            "fps": 10
+        },
+        "attack": {
+            "frames": ["attack1.png", ...],
+            "fps": 12,
+            "damage": 10,
+            "hitbox": {...}  // Define hitbox properties here
+        },
+        ...
+    }
+}
+2.3 AI File:
+A Python script or another scripting language would be ideal. This script will dictate behavior, using game states and character status as inputs.
+
+3. Game Engine Integration:
+3.1 Character Loader:
+At game start, scan the 'Characters' directory for character folders.
+For each character, read the JSON settings file.
+Load sprites, animations, and AI behavior based on the settings file.
+3.2 Character Class:
+Create a base 'Character' class in UE5.
+This class should have methods to load animations, handle movement, execute attacks, and react to collisions based on the loaded settings.
+3.3 AI Integration:
+The AI component would read the AI file of a character and execute decisions based on it.
+For future machine learning integration, use placeholder function calls, like getDecisionFromModel().
+4. UI & Game Loop:
+Create a character select screen that displays all loaded characters using lightweight previews.
+Have a battle arena scene for the showdown between two selected characters.
+Implement game mechanics like health reduction, round timer, and win/loss scenarios.
+5. Testing & Debugging Tool:
+Develop a "test mode" within the game for third-party creators to preview and test their characters.
+6. Future AI Training:
+6.1 Training Environment:
+Create a closed environment in the game where AI-controlled characters can repeatedly fight against each other or benchmark AI.
+6.2 Data Collection:
+Collect data about character positions, health, actions chosen, and game outcomes.
+6.3 Machine Learning:
+Use the collected data to train AI models outside of UE (using TensorFlow, PyTorch, etc.).
+Export these trained models into a format that can be loaded by UE5.
+6.4 Integration:
+Integrate trained models using plugins or bridges, allowing the character's AI component to use them for decision-making.
+7. Enhanced Documentation and Tutorials:
+Offer comprehensive documentation detailing character creation requirements.
+Provide visual aids, templates, or sample character configurations to guide creators.
+8. Validation Script:
+Introduce a validation script that checks the character data for errors or missing elements, offering feedback about any issues.
+This integrated plan should provide a clear roadmap for developing the 2D fighting game with the flexibility for third-party character integrations without needing the Unreal Editor.
