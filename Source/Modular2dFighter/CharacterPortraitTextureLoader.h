@@ -4,7 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
+#include "Engine/Texture2D.h"
 #include "CharacterPortraitTextureLoader.generated.h"
+
 
 /**
  * 
@@ -14,4 +16,8 @@ class MODULAR2DFIGHTER_API UCharacterPortraitTextureLoader : public UBlueprintFu
 {
 	GENERATED_BODY()
 	
+public:
+
+	UFUNCTION(BlueprintCallable, Category = "Custom Texture Loader")
+	static UTexture2D* LoadTextureFromPath(const FString& Path);
 };
