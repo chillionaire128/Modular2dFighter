@@ -1,1 +1,4 @@
-test
+{
+    "name": "TestChar",
+    "health": 100
+}

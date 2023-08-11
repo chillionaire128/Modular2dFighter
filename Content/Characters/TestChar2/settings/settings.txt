@@ -1,0 +1,4 @@
+{
+    "name": "TestChar2",
+    "health": 40
+}

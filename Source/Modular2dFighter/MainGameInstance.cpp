@@ -6,7 +6,6 @@
 void UMainGameInstance::Init()
 {
     Super::Init();
-    GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Executing ScanCharactersDirectory..."));
     ScanCharactersDirectory();
 }
 
@@ -16,9 +15,6 @@ void UMainGameInstance::ScanCharactersDirectory()
 
     // Assuming characters are stored in a "Characters" directory under the Content directory
     FString CharacterFolderPath = FPaths::ProjectContentDir() + TEXT("Characters/");
-
-    // Print debug message indicating function execution
-    UE_LOG(LogTemp, Warning, TEXT("Executing ScanCharactersDirectory..."));
 
     // Array to hold found directory entries (both files and directories)
     TArray<FString> CharacterDirectories;
@@ -37,17 +33,28 @@ void UMainGameInstance::ScanCharactersDirectory()
     {
         for (FString CharacterDir : CharacterDirectories)
         {
-            // Print debug message for each folder being checked
-            UE_LOG(LogTemp, Warning, TEXT("Checking folder: %s"), *CharacterDir);
-
             FString SettingsFilePath = CharacterDir + TEXT("/settings/settings.txt");
-
-            // Check if the settings file exists
-            UE_LOG(LogTemp, Warning, TEXT("Checking for file: %s"), *SettingsFilePath);
             if (FPaths::FileExists(SettingsFilePath))
             {
-                // Print the path to the settings file for the character
-                UE_LOG(LogTemp, Warning, TEXT("Found character settings: %s"), *SettingsFilePath);
+                //parse the JSON file
+                FString JsonRaw;
+                if (FFileHelper::LoadFileToString(JsonRaw, *SettingsFilePath))
+                {
+                    TSharedPtr<FJsonObject> JsonObject;
+                    TSharedRef<TJsonReader<>> JsonReader = TJsonReaderFactory<>::Create(JsonRaw);
+
+                    if (FJsonSerializer::Deserialize(JsonReader, JsonObject) && JsonObject.IsValid())
+                    {
+                        FString CharName = JsonObject->GetStringField("name");
+                        int32 CharHealth = JsonObject->GetIntegerField("health");
+
+                        UE_LOG(LogTemp, Warning, TEXT("Character Name: %s, Health: %d"), *CharName, CharHealth);
+                    }
+                    else
+                    {
+                        UE_LOG(LogTemp, Error, TEXT("Failed to parse JSON from: %s"), *SettingsFilePath);
+                    }
+                }
             }
         }
     }
