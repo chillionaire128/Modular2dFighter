@@ -1,4 +1,5 @@
 {
     "name": "TestChar2",
-    "health": 40
+    "health": 40,
+    "selectIcon": "SomeOtherIcon.png"
 }

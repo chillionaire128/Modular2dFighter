@@ -1,0 +1,6 @@
+1. Load character atribuets for select screen from settings.txt (later to be settings.json)
+	- Name
+	- Health
+	- Char select icon
+
+is using one SSF file more efficient than individual sprites? is there a better way?

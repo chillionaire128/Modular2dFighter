@@ -47,8 +47,22 @@ void UMainGameInstance::ScanCharactersDirectory()
                     {
                         FString CharName = JsonObject->GetStringField("name");
                         int32 CharHealth = JsonObject->GetIntegerField("health");
+                        FString IconFileName = JsonObject->GetStringField("selectIcon");
 
-                        UE_LOG(LogTemp, Warning, TEXT("Character Name: %s, Health: %d"), *CharName, CharHealth);
+                        // Assembling the icon path
+                        FString FullIconPath = CharacterDir + TEXT("/ArtAssets/") + IconFileName;
+
+                        UE_LOG(LogTemp, Warning, TEXT("Character Name: %s, Health: %d, Select Icon: %s"), *CharName, CharHealth, *FullIconPath);
+
+                        // Check if the selectIcon file exists
+                        if (PlatformFile.FileExists(*FullIconPath))
+                        {
+                            UE_LOG(LogTemp, Warning, TEXT("Icon found at: %s"), *FullIconPath);
+                        }
+                        else
+                        {
+                            UE_LOG(LogTemp, Warning, TEXT("Icon NOT found at: %s"), *FullIconPath);
+                        }
                     }
                     else
                     {
