@@ -36,7 +36,9 @@ void UMainGameInstance::ScanCharactersDirectory()
             FString SettingsFilePath = CharacterDir + TEXT("/settings/settings.txt");
             if (FPaths::FileExists(SettingsFilePath))
             {
-                //parse the JSON file
+                UE_LOG(LogTemp, Warning, TEXT("Found character settings: %s"), *SettingsFilePath);
+
+                // Now, let's read and parse the JSON file
                 FString JsonRaw;
                 if (FFileHelper::LoadFileToString(JsonRaw, *SettingsFilePath))
                 {
@@ -45,24 +47,15 @@ void UMainGameInstance::ScanCharactersDirectory()
 
                     if (FJsonSerializer::Deserialize(JsonReader, JsonObject) && JsonObject.IsValid())
                     {
-                        FString CharName = JsonObject->GetStringField("name");
-                        int32 CharHealth = JsonObject->GetIntegerField("health");
-                        FString IconFileName = JsonObject->GetStringField("selectIcon");
+                        FCharacterInfo CharInfo;
 
-                        // Assembling the icon path
-                        FString FullIconPath = CharacterDir + TEXT("/ArtAssets/") + IconFileName;
+                        CharInfo.Name = JsonObject->GetStringField("name");
+                        CharInfo.Health = JsonObject->GetIntegerField("health");
+                        CharInfo.SelectIconPath = CharacterDir + TEXT("/ArtAssets/") + JsonObject->GetStringField("selectIcon");
 
-                        UE_LOG(LogTemp, Warning, TEXT("Character Name: %s, Health: %d, Select Icon: %s"), *CharName, CharHealth, *FullIconPath);
+                        LoadedCharacters.Add(CharInfo);
 
-                        // Check if the selectIcon file exists
-                        if (PlatformFile.FileExists(*FullIconPath))
-                        {
-                            UE_LOG(LogTemp, Warning, TEXT("Icon found at: %s"), *FullIconPath);
-                        }
-                        else
-                        {
-                            UE_LOG(LogTemp, Warning, TEXT("Icon NOT found at: %s"), *FullIconPath);
-                        }
+                        UE_LOG(LogTemp, Warning, TEXT("Character Name: %s, Health: %d, Select Icon: %s"), *CharInfo.Name, CharInfo.Health, *CharInfo.SelectIconPath);
                     }
                     else
                     {

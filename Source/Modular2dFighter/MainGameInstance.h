@@ -4,7 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "Engine/GameInstance.h"
+#include "CharacterInfo.h"
 #include "MainGameInstance.generated.h"
+
 
 /**
  * 
@@ -17,6 +19,9 @@ class MODULAR2DFIGHTER_API UMainGameInstance : public UGameInstance
 public:
 	// Override the Init function from UGameInstance
 	virtual void Init() override;
+
+	UPROPERTY(BlueprintReadOnly, Category = "Characters")
+	TArray<FCharacterInfo> LoadedCharacters;
 
 private:
 	void ScanCharactersDirectory();
