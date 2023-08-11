@@ -8,7 +8,7 @@ public class Modular2dFighter : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore","Json", "JsonUtilities" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore","Json", "JsonUtilities", "ImageWrapper" });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 
