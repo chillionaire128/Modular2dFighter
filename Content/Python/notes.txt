@@ -1,0 +1,3 @@
+Run main script: "E:\Unreal\Modular2dFighter\Modular2dFighter\Content\Python\main.py"
+
+communication between UE and python via named pipes? alternatives shared memory and TCP sockets
