@@ -11,7 +11,6 @@ def find_settingsfiles(start_dir):
     for root, dirs, files in os.walk(start_dir):
         if 'settings.json' in files:
             settings_file_paths.append(os.path.join(root, 'settings.json'))
-
     return settings_file_paths
 
 def get_all_characters_info(character_directory):

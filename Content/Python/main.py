@@ -8,6 +8,14 @@ character_directory = "E:/Unreal/Modular2dFighter/Modular2dFighter/Content/Chara
 character_info = get_all_characters_info(character_directory)
 for character in character_info:
     print(f"Loaded info for: {character.name}")
+    print(f"Character select image at: {character.selectIconPath}")
+    #Create the character select UI elements
+    texture_asset = unreal.EditorAssetLibrary.load_asset(character.selectIconPath)
+    if not texture_asset:
+        raise ValueError("Failed to load the existing texture.")
+
+
+
 
 # List all the files in the image directory
 #all_files = unreal.EditorAssetLibrary.list_assets(image_directory)
